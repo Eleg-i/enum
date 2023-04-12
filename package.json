@@ -14,7 +14,10 @@
     "test": "jest",
     "build": "node ./script/esbuild.js",
     "postbuild": "npm run test -s",
-    "prepublishOnly": "npm run build -s"
+    "prepublishOnly": "npm run build -s",
+    "patch": "npm version patch && npm i",
+    "minor": "npm version minor && npm i",
+    "major": "npm version major && npm i"
   },
   "keywords": [
     "enum",
