@@ -6,3 +6,6 @@ debug
 patches
 browserslist
 jest.config.js
+.eslintrc.cjs
+.gitignore
+babel.config.cjs
