@@ -1,6 +1,6 @@
 {
   "name": "@cailiao/enum",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "一个适用于 JavaScript 和 TypeScript 的拓展枚举类型。",
   "main": "dist/enum.cjs.node.min.js",
   "module": "dist/enum.esm.node.min.js",
