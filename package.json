@@ -5,8 +5,8 @@
   "main": "dist/enum.cjs.node.min.js",
   "module": "dist/enum.esm.node.min.js",
   "browser": {
-    "./dist/enum.cjs.node.min.js": "dist/enum.cjs.browser.min.js",
-    "./dist/enum.esm.node.min.js": "dist/enum.esm.browser.min.js"
+    "./dist/enum.cjs.node.min.js": "./dist/enum.cjs.browser.min.js",
+    "./dist/enum.esm.node.min.js": "./dist/enum.esm.browser.min.js"
   },
   "type": "module",
   "scripts": {
