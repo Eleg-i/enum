@@ -5,7 +5,7 @@
   "main": "dist/enum.cjs.node.min.js",
   "module": "dist/enum.esm.node.min.js",
   "browser": {
-    "./dist/enum.cjs.node.min.js": "dist/enum.cjs.browser.min.js", 
+    "./dist/enum.cjs.node.min.js": "dist/enum.cjs.browser.min.js",
     "./dist/enum.esm.node.min.js": "dist/enum.esm.browser.min.js"
   },
   "type": "module",
@@ -34,8 +34,13 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.21.4",
+    "@babel/eslint-parser": "^7.21.3",
     "@babel/preset-env": "^7.21.4",
+    "@cailiao/eslint-plugin-prettier": "^0.2.8",
     "babel-jest": "^29.5.0",
-    "jest": "^29.5.0"
+    "eslint": "^8.38.0",
+    "eslint-config-standard": "^17.0.0",
+    "jest": "^29.5.0",
+    "prettier": "^2.8.7"
   }
 }
