@@ -1,6 +1,7 @@
 const production = process.env.NODE_ENV === 'production'
 
 module.exports = {
+  root: true,
   env: {
     browser: true,
     es6: true,
