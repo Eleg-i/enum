@@ -107,6 +107,7 @@ test('myEnum 默认为不可拓展', () => {
 test('myEnum 可以设置为可拓展', () => {
   const myEnum = new Enum({ a: 'a', b: 2, c: 3 }, undefined, { extensible: true })
 
+  expect(Object.isExtensible(myEnum)).toBe(true)
   expect(myEnum.value).toBe('a')
   myEnum.d = 'd'
   expect(myEnum.d).toBe('d')

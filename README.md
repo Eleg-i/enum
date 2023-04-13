@@ -74,6 +74,9 @@ console.log(color.value); // red
     color.__enum__.black = 'black'
     color.value = color.black
     console.log(color.value); // black
+
+    // Vue@2 中 observable 方法只能监视可拓展对象
+    Vue.observable(new Enum([1, 2], 1, { extensible: true }))
     ```
 
 ## 属性和方法
