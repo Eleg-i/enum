@@ -13,7 +13,7 @@
     "debugger": "jest --silent=false --runInBand --no-cache",
     "test": "jest",
     "build": "node ./script/esbuild.js",
-    "postbuild": "npm run test -s",
+    "prebuild": "npm run test -s",
     "prepublishOnly": "npm run build -s",
     "patch": "npm version patch && npm i",
     "minor": "npm version minor && npm i",

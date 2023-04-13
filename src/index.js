@@ -45,7 +45,7 @@ export default class Enumeration {
             that.__values__ = Object.values(that.__enum__)
           },
           enumerable: false,
-          configurable: false
+          configurable: extensible
         }
       else
         config[key] = {
@@ -67,25 +67,25 @@ export default class Enumeration {
           else throw typeError
         },
         enumerable: true,
-        configurable: false
+        configurable: extensible
       },
       __values__: {
         value: innerEnumValues,
         writable: extensible,
         enumerable: false,
-        configurable: false
+        configurable: extensible
       },
       __value__: {
         value: innerDefaultVaule,
         writable: true,
         enumerable: false,
-        configurable: false
+        configurable: extensible
       },
       __enum__: {
         value: innerEnum,
         writable: extensible,
         enumerable: false,
-        configurable: false
+        configurable: extensible
       }
     })
 
