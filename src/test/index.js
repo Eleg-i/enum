@@ -92,3 +92,30 @@ test('myEnum 的 枚举范围参数不能为非对象类型', () => {
     new Enum('[]')
   }).toThrow(TypeError)
 })
+
+test('myEnum 默认为不可拓展', () => {
+  const myEnum = new Enum({ a: 'a', b: 2, c: 3 })
+
+  expect(() => {
+    myEnum.d = 'd'
+  }).toThrow(TypeError)
+  expect(() => {
+    myEnum.__enum__.a = '1'
+  }).toThrow(TypeError)
+})
+
+test('myEnum 可以设置为可拓展', () => {
+  const myEnum = new Enum({ a: 'a', b: 2, c: 3 }, undefined, { extensible: true })
+
+  expect(myEnum.value).toBe('a')
+  myEnum.d = 'd'
+  expect(myEnum.d).toBe('d')
+  myEnum.__enum__.a = '1'
+  expect(myEnum.a).toBe('1')
+  myEnum.value = myEnum.a
+  expect(myEnum.value).toBe('1')
+  myEnum.b = 'b'
+  expect(myEnum.b).toBe('b')
+  myEnum.value = myEnum.b
+  expect(myEnum.value).toBe('b')
+})

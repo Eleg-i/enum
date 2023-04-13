@@ -8,15 +8,25 @@ export default class Enumeration {
    * @param {Array|Enum|Object} enumValues 枚举范围，支持数组, 对象和TS的 enum 类型
    * @param {Any} defaultVaule
    */
-  constructor(enumValues, defaultVaule) {
+  constructor(enumValues, defaultVaule, { extensible } = { extensible: false }) {
     if (typeof enumValues !== 'object')
       throw new TypeError(
         '类构造器不接受非对象类型作为第一参数！The class constructor does not accept a non-object type as the first argument！'
       )
 
-    const innerEnumValues = Object.freeze(Object.values(enumValues)),
+    const that = this,
+          values = Object.values(enumValues),
+          innerEnumValues = extensible ? values : Object.freeze(values),
           innerDefaultVaule = defaultVaule ?? innerEnumValues[0],
-          innerEnum = Object.freeze({ ...enumValues }),
+          enumProxyConfig = {
+            set(target, prop, value) {
+              target[prop] = value
+              that.__values__ = Object.values(target)
+
+              return true
+            }
+          },
+          innerEnum = extensible ? new Proxy({ ...enumValues }, enumProxyConfig) : Object.freeze({ ...enumValues }),
           config = {},
           typeError = new TypeError('不能写入枚举范围之外的值！Cannot write values outside the enum range!')
 
@@ -25,12 +35,25 @@ export default class Enumeration {
     if (!innerEnumValues.includes(innerDefaultVaule)) throw typeError
 
     for (const key in enumValues) {
-      config[key] = {
-        value: enumValues[key],
-        writable: false,
-        enumerable: false,
-        configurable: false
-      }
+      if (extensible)
+        config[key] = {
+          get() {
+            return that.__enum__[key]
+          },
+          set(val) {
+            that.__enum__[key] = val
+            that.__values__ = Object.values(that.__enum__)
+          },
+          enumerable: false,
+          configurable: false
+        }
+      else
+        config[key] = {
+          value: enumValues[key],
+          writable: false,
+          enumerable: false,
+          configurable: false
+        }
     }
 
     Object.defineProperties(this, {
@@ -48,7 +71,7 @@ export default class Enumeration {
       },
       __values__: {
         value: innerEnumValues,
-        writable: false,
+        writable: extensible,
         enumerable: false,
         configurable: false
       },
@@ -60,12 +83,12 @@ export default class Enumeration {
       },
       __enum__: {
         value: innerEnum,
-        writable: false,
+        writable: extensible,
         enumerable: false,
         configurable: false
       }
     })
 
-    Object.seal(this)
+    extensible || Object.seal(this)
   }
 }

@@ -22,7 +22,9 @@ import Enum from "@cailiao/enum";
 const Enum = require("@cailiao/enum");
 ```
 
-然后，你可以使用new关键字来创建一个枚举类型的实例：
+然后，你可以使用new关键字来创建一个枚举类型的实例，传入一个对象或者数组作为枚举范围：
+
+- enum
 
 ```js
 // 传入一个对象作为枚举范围
@@ -40,6 +42,8 @@ const gender = new Enum(Gender);
 你也可以传入一个可选的第二个参数，作为实例的默认值，默认值必须被包含在枚举范围之内：
 如果缺省默认值，则会将会以第一个参数的第一个字段作为默认值。
 
+- default `Any` 可选(optional)
+
 ```js
 // 传入一个默认值
 const color = new Enum({ red: "red", green: "green", blue: "blue" }, "blue");
@@ -49,6 +53,28 @@ console.log(color.value); // blue
 const color = new Enum({ red: "red", green: "green", blue: "blue" });
 console.log(color.value); // red
 ```
+
+你还可以传入一个可选的第三个参数，作为实例创建时的配置项：
+
+- options `Object` 可选(optional)
+
+  - extensible `Boolean`
+
+    设置实例是否为可拓展，即是否可以修改实例定义。
+
+    ```js
+    // 允许实例可以拓展
+    const color = new Enum(
+      { red: "red", green: "green", blue: "blue" }, 
+      undefined,
+      { extensible: true }
+    );
+    console.log(color.value); // red
+    // 设置可拓展后可以动态修改枚举范围
+    color.__enum__.black = 'black'
+    color.value = color.black
+    console.log(color.value); // black
+    ```
 
 ## 属性和方法
 
