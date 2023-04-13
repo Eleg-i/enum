@@ -32,29 +32,63 @@ import Enum from '../index.js'
 }
 
 {
-  const myEnum2 = new Enum({ a: 1, b: 2, c: 'a', value: 0 }, 'a')
+  const myEnum = new Enum({ a: 1, b: 2, c: 'a', value: 0 }, 'a')
 
-  test('myEnum2 的 value 属性 应为 a', () => {
-    expect(myEnum2.value).toBe('a')
+  test('myEnum 的 value 属性 应为 a', () => {
+    expect(myEnum.value).toBe('a')
   })
 
-  test('myEnum2 的 value 应为 1', () => {
-    myEnum2.value = 1
+  test('myEnum 的 value 应为 1', () => {
+    myEnum.value = 1
 
-    expect(myEnum2.value).toBe(1)
+    expect(myEnum.value).toBe(1)
   })
 
-  test('myEnum2 的 value 不能为 b', () => {
+  test('myEnum 的 value 不能为 b', () => {
     expect(() => {
-      myEnum2.value = 'b'
+      myEnum.value = 'b'
     }).toThrow(TypeError)
   })
 
-  test('myEnum2 的 c 属性 应为 a', () => {
-    expect(myEnum2.c).toBe('a')
+  test('myEnum 的 c 属性 应为 a', () => {
+    expect(myEnum.c).toBe('a')
   })
 
-  test('myEnum2 的 原始 value 属性 应为 0', () => {
-    expect(myEnum2.__enum__.value).toBe(0)
+  test('myEnum 的 原始 value 属性 应为 0', () => {
+    expect(myEnum.__enum__.value).toBe(0)
   })
 }
+
+{
+  const myEnum = new Enum([1, 2, 3])
+
+  test('myEnum 的 value 属性 应为 1', () => {
+    expect(myEnum.value).toBe(1)
+  })
+}
+
+{
+  const myEnum = new Enum({ a: 'a', b: 2, c: 3 })
+
+  test('myEnum 的 value 属性 应为 a', () => {
+    expect(myEnum.value).toBe('a')
+  })
+}
+
+test('myEnum 的 枚举范围不能为空集', () => {
+  expect(() => {
+    new Enum({})
+  }).toThrow(RangeError)
+  expect(() => {
+    new Enum([])
+  }).toThrow(RangeError)
+})
+
+test('myEnum 的 枚举范围参数不能为非对象类型', () => {
+  expect(() => {
+    new Enum(1)
+  }).toThrow(TypeError)
+  expect(() => {
+    new Enum('[]')
+  }).toThrow(TypeError)
+})

@@ -8,13 +8,21 @@ export default class Enumeration {
    * @param {Array|Enum|Object} enumValues 枚举范围，支持数组, 对象和TS的 enum 类型
    * @param {Any} defaultVaule
    */
-  constructor(enumValues = [], defaultVaule) {
+  constructor(enumValues, defaultVaule) {
+    if (typeof enumValues !== 'object')
+      throw new TypeError(
+        '类构造器不接受非对象类型作为第一参数！The class constructor does not accept a non-object type as the first argument！'
+      )
+
     const innerEnumValues = Object.freeze(Object.values(enumValues)),
+          innerDefaultVaule = defaultVaule ?? innerEnumValues[0],
           innerEnum = Object.freeze({ ...enumValues }),
           config = {},
           typeError = new TypeError('不能写入枚举范围之外的值！Cannot write values outside the enum range!')
 
-    if (!innerEnumValues.includes(defaultVaule)) throw typeError
+    if (!innerEnumValues.length) throw new RangeError('枚举范围不可为空集！Enumeration ranges cannot be empty sets！')
+
+    if (!innerEnumValues.includes(innerDefaultVaule)) throw typeError
 
     for (const key in enumValues) {
       config[key] = {
@@ -45,7 +53,7 @@ export default class Enumeration {
         configurable: false
       },
       __value__: {
-        value: defaultVaule,
+        value: innerDefaultVaule,
         writable: true,
         enumerable: false,
         configurable: false

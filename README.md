@@ -38,10 +38,15 @@ const gender = new Enum(Gender);
 ```
 
 你也可以传入一个可选的第二个参数，作为实例的默认值，默认值必须被包含在枚举范围之内：
+如果缺省默认值，则会将会以第一个参数的第一个字段作为默认值。
 
 ```js
 // 传入一个默认值
-const color = new Enum({ red: "red", green: "green", blue: "blue" }, "red");
+const color = new Enum({ red: "red", green: "green", blue: "blue" }, "blue");
+console.log(color.value); // blue
+
+// 使用缺省值
+const color = new Enum({ red: "red", green: "green", blue: "blue" });
 console.log(color.value); // red
 ```
 
